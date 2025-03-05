@@ -1,0 +1,25 @@
+initial_research:
+  description: >
+    Search the web and gather relevant information about '{topic}'. 
+    Focus on recent and authoritative sources. Identify key trends, 
+    facts, and insights.
+  expected_output: >
+    A comprehensive collection of relevant information, including:
+    - Key facts and data points
+    - Recent developments
+    - Expert opinions
+    - Relevant statistics
+  agent: researcher
+
+analysis_and_synthesis:
+  description: >
+    Review the gathered research and create a comprehensive analysis. 
+    Synthesize the information into clear, actionable insights.
+  expected_output: >
+    A well-structured analysis including:
+    - Executive summary
+    - Key findings
+    - Analysis of trends
+    - Recommendations or conclusions
+  agent: senior_researcher
+  output_file: output/research.md 

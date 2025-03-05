@@ -1,0 +1,155 @@
+{
+    "projectStructure": {
+      "rootFolder": "crewAI_notion_integration",
+      "filesAndFolders": [
+        {
+          "name": ".env",
+          "description": "Shared environment file storing Notion API key, OpenAI API key, and other credentials."
+        },
+        {
+          "name": "README.md",
+          "description": "High-level documentation describing setup, usage, and contribution guidelines."
+        },
+        {
+          "name": "requirements.txt",
+          "description": "Specifies the dependencies and libraries needed for the project."
+        },
+        {
+          "name": "Procfile",
+          "description": "Configuration file for Render deployment, specifies how to run the application."
+        },
+        {
+          "name": "scheduled_service.py",
+          "description": "Main entry point for the background service that polls Notion for tasks to execute."
+        },
+        {
+          "name": "orchestrator",
+          "type": "folder",
+          "contents": [
+            {
+              "name": "__init__.py",
+              "description": "Makes this directory a Python package."
+            },
+            {
+              "name": "webhook_handler.py",
+              "description": "Contains logic for processing Notion tasks and routing to appropriate crews."
+            },
+            {
+              "name": "notion_api.py",
+              "description": "Contains functions to interact with Notion's API (create, read, update tasks)."
+            },
+            {
+              "name": "main.py",
+              "description": "Entry point for the FastAPI application (used during development with ngrok)."
+            }
+          ]
+        },
+        {
+          "name": "crews",
+          "type": "folder",
+          "description": "Central folder containing specialized crews' repositories or folders.",
+          "contents": [
+            {
+              "name": "research_crew",
+              "type": "folder",
+              "description": "Specialized crew for research tasks using CrewAI.",
+              "contents": [
+                {
+                  "name": "crew.py",
+                  "description": "Defines the ResearchCrew class and its agents."
+                },
+                {
+                  "name": "config.yaml",
+                  "description": "Configuration for the research crew agents and tasks."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "tests",
+          "type": "folder",
+          "description": "Contains integration tests and unit tests.",
+          "contents": [
+            {
+              "name": "test_notion_integration.py",
+              "description": "Tests the Notion API integrations and task processing."
+            },
+            {
+              "name": "test_crews.py",
+              "description": "Tests the specialized crew logic."
+            }
+          ]
+        }
+      ]
+    },
+    "dependencies": {
+      "core": [
+        {
+          "name": "python-dotenv",
+          "description": "Loads the shared .env for environment variables."
+        },
+        {
+          "name": "httpx",
+          "description": "Async HTTP client for making API requests."
+        }
+      ],
+      "notionIntegration": [
+        {
+          "name": "notion-client",
+          "description": "Official library for interacting with Notion's API."
+        }
+      ],
+      "webService": [
+        {
+          "name": "fastapi",
+          "description": "Framework for building async-capable, modern Python APIs."
+        },
+        {
+          "name": "uvicorn",
+          "description": "ASGI server for running FastAPI applications."
+        }
+      ],
+      "llmAndCrewIntegration": [
+        {
+          "name": "openai",
+          "description": "For OpenAI API access and LLM-driven task routing."
+        },
+        {
+          "name": "crewai",
+          "description": "Framework for creating and managing AI agent crews."
+        }
+      ],
+      "testing": [
+        {
+          "name": "pytest",
+          "description": "Testing framework for Python."
+        },
+        {
+          "name": "pytest-asyncio",
+          "description": "Pytest plugin for testing asyncio code."
+        }
+      ]
+    },
+    "deploymentStrategy": {
+      "development": {
+        "approach": "Local development with direct testing",
+        "tools": ["Python interpreter", "pytest"]
+      },
+      "production": {
+        "platform": "Render",
+        "tier": "Hobby (Free)",
+        "configuration": {
+          "buildCommand": "pip install -r requirements.txt",
+          "startCommand": "python scheduled_service.py"
+        },
+        "environmentVariables": [
+          "NOTION_API_KEY",
+          "OPENAI_API_KEY",
+          "SERPER_API_KEY",
+          "DATABASE_ID"
+        ]
+      }
+    }
+  }
+  
